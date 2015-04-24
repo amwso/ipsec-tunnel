@@ -22,6 +22,4 @@ ADD template /root/template
 
 RUN chmod +x /root/sbin/init.sh
 
-EXPOSE 500/udp 80/tcp
-
 ENTRYPOINT ["/root/sbin/init.sh"]
