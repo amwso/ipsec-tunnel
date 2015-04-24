@@ -20,6 +20,8 @@ RUN echo 'HISTFILE=/dev/null' >> ~/.bashrc ; \
 ADD sbin /root/sbin
 ADD template /root/template
 
+RUN chmod +x /root/sbin/init.sh
+
 EXPOSE 500
 
 ENTRYPOINT ["/root/sbin/init.sh"]
