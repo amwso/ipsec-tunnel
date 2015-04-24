@@ -12,8 +12,9 @@ RUN echo 'HISTFILE=/dev/null' >> ~/.bashrc ; \
  yum -y update ; \
  yum -y install \
  epel-release \
- wget supervisor openswan pwgen \
+ wget supervisor python-setuptools openswan pwgen \
  ; \ 
+ easy_install mr.laforge ; \
  rm -f /etc/yum.repos.d/epel-tmp.repo
 
 ADD sbin /root/sbin
