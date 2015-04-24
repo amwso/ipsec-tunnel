@@ -6,7 +6,7 @@ RUN echo 'HISTFILE=/dev/null' >> /.bashrc ; \
  yum makecache; \
  cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime ; \
  sed -i 's/UTC=yes/UTC=no/' /etc/default/rcS ; \
- yum install -y openswan ; \
+ yum install -y openswan supervisor pwgen ; \
 
 ADD sbin /root/sbin
 ADD template /root/template
