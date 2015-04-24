@@ -1,14 +1,24 @@
 FROM centos:6
 MAINTAINER HJay <trixism@qq.com>
 
-RUN echo 'HISTFILE=/dev/null' >> /.bashrc ; \
+RUN echo 'HISTFILE=/dev/null' >> ~/.bashrc ; \
  HISTSIZE=0 ; \
- yum makecache; \
  cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime ; \
- sed -i 's/UTC=yes/UTC=no/' /etc/default/rcS ; \
- yum install -y openswan supervisor pwgen ; \
+ echo "ip_resolve=4" >> /etc/yum.conf ; \
+ sed -i -e 's/^#baseurl=/baseurl=/g' -e 's/^mirrorlist=/#mirrorlist=/g' -e 's/mirror.centos.org/mirrors.ustc.edu.cn/g' /etc/yum.repos.d/CentOS-Base.repo ; \
+ echo -e "[epel]\nname=epel\nbaseurl=http://mirrors.ustc.edu.cn/epel/6/\$basearch\nenabled=1\ngpgcheck=0" > /etc/yum.repos.d/epel-tmp.repo ; \
+ yum clean all ; \
+ yum makecache ; \
+ yum -y update ; \
+ yum -y install \
+ epel-release \
+ wget supervisor openswan pwgen \
+ ; \ 
+ rm -f /etc/yum.repos.d/epel-tmp.repo
 
 ADD sbin /root/sbin
 ADD template /root/template
 
 EXPOSE 500
+
+ENTRYPOINT ["/root/sbin/init.sh"]
